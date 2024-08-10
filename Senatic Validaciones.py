@@ -235,14 +235,12 @@ while Control:
             nombre = input("\nNombre del profesor que desea actualizar: ")
 
             try:
-                # Verificar si el ID del profesor existe en la base de datos
                 cur.execute("SELECT COUNT(*) FROM profesor WHERE id_prof = ?", (id_prof,))
                 count = cur.fetchone()[0]
 
                 if count == 0:
                     print("\nError: El ID del profesor no existe en la base de datos.\n")
                 else:
-                    # Actualizar el nombre del profesor si el ID existe
                     sql = "UPDATE profesor SET nombre = ? WHERE id_prof = ?"
                     cur.execute(sql, (nombre, id_prof))
                     conex.commit()
