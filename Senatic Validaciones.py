@@ -315,28 +315,24 @@ while Control:
             id_asig = input("\nID de la asignatura: ")
 
             try:
-                # Verificar si el ID del alumno existe en la base de datos
                 cur.execute("SELECT COUNT(*) FROM alumno WHERE id_alum = ?", (id_alum,))
                 count_alum = cur.fetchone()[0]
 
                 if count_alum == 0:
                     print("\nError: El ID del alumno no existe en la base de datos.\n")
                 else:
-                    # Verificar si el ID del programa existe en la base de datos
                     cur.execute("SELECT COUNT(*) FROM programa WHERE id_prog = ?", (id_prog,))
                     count_prog = cur.fetchone()[0]
 
                     if count_prog == 0:
                         print("\nError: El ID del programa no existe en la base de datos.\n")
                     else:
-                        # Verificar si el ID de la asignatura existe en la base de datos
                         cur.execute("SELECT COUNT(*) FROM asignatura WHERE id_asig = ?", (id_asig,))
                         count_asig = cur.fetchone()[0]
 
                         if count_asig == 0:
                             print("\nError:  El ID de la asignatura no existe en la base de datos.\n")
                         else:
-                            # Actualizar los datos del alumno si todo es válido
                             sql = "UPDATE alumno SET nombre = ?, id_prog = ?, id_asig = ? WHERE id_alum = ?"
                             cur.execute(sql, (nombre, id_prog, id_asig, id_alum))
                             conex.commit()
@@ -413,21 +409,18 @@ while Control:
             id_prof = input("ID del profesor: ")
 
             try:
-                # Verificar si el ID del profesor existe en la base de datos
                 cur.execute("SELECT COUNT(*) FROM profesor WHERE id_prof = ?", (id_prof,))
                 count_prof = cur.fetchone()[0]
 
                 if count_prof == 0:
                     print("\nError: El ID del profesor no existe en la base de datos.\n")
                 else:
-                    # Verificar si hay registros en la tabla 'asignatura' que referencian este ID
                     cur.execute("SELECT COUNT(*) FROM asignatura WHERE id_prof = ?", (id_prof,))
                     count_asig = cur.fetchone()[0]
 
                     if count_asig > 0:
                         print("\nError: El ID del profesor no se puede eliminar porque está siendo referenciado en la tabla 'asignatura'.\n")
                     else:
-                        # Eliminar el profesor si no hay referencias
                         sql = "DELETE FROM profesor WHERE id_prof = ?"
                         cur.execute(sql, (id_prof,))
                         conex.commit()
@@ -480,14 +473,12 @@ while Control:
             id_alum = input("ID del Alumno: ")
 
             try:
-                # Verificar si el ID del alumno existe en la base de datos
                 cur.execute("SELECT COUNT(*) FROM alumno WHERE id_alum = ?", (id_alum,))
                 count_alum = cur.fetchone()[0]
 
                 if count_alum == 0:
                     print("\nError: El ID del alumno no existe en la base de datos.\n")
                 else:
-                    # Eliminar el alumno si el ID existe
                     sql = "DELETE FROM alumno WHERE id_alum = ?"
                     cur.execute(sql, (id_alum,))
                     conex.commit()
@@ -611,16 +602,3 @@ while Control:
     elif opcion == 5:
         print("\nSaliendo del programa automaticamente...")
         exit()
-
-
-
-
-
-
-
-
-
-
-
-
-
